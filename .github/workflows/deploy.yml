@@ -60,6 +60,19 @@ jobs:
           name: dist-files
           path: dist
 
+      - name: Verify AWS role configuration
+        env:
+          AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+        run: |
+          ROLE_NAME="${AWS_ROLE_ARN##*/}"
+          ACCOUNT_ID="$(printf '%s' "$AWS_ROLE_ARN" | cut -d: -f5)"
+          echo "AWS account: ${ACCOUNT_ID}"
+          echo "AWS role name: ${ROLE_NAME}"
+          if [ "$ROLE_NAME" != "GitHubActionsDevOpsDeploymentRole" ]; then
+            echo "::error::AWS_ROLE_ARN must reference GitHubActionsDevOpsDeploymentRole"
+            exit 1
+          fi
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
