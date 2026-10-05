@@ -1,0 +1,13 @@
+{
+  "name": "devops-assignment-2-website",
+  "version": "1.0.0",
+  "description": "DevOps Training CI/CD S3 and CloudFront Deployment",
+  "main": "src/script.js",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "node scripts/build.js"
+  },
+  "keywords": ["devops", "aws", "s3", "cloudfront", "github-actions"],
+  "author": "",
+  "license": "ISC"
+}
